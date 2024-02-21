@@ -248,15 +248,28 @@
 //   },
 // });
 
-import {  View } from 'react-native'
 import React from 'react'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { StatusBar } from 'expo-status-bar';
+
 import Signup from './components/signup'
+import Login from './components/login'
+
+import Home from './components/home'
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <View>
-      <Signup/>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name="Signup" component={Signup} options={{ headerShown: false }} />
+        <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+
+      </Stack.Navigator>
+      <StatusBar style="auto" />
+    </NavigationContainer>
   )
 }
 
