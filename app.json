@@ -16,6 +16,8 @@
     ],
     "ios": {
       "supportsTablet": true
+      
+
     },
     "android": {
       "adaptiveIcon": {
