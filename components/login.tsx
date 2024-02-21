@@ -1,54 +1,61 @@
-import { ScrollView, StyleSheet, Text, Image,TextInput,View ,TouchableOpacity, Alert,Pressable} from 'react-native'
+import { ScrollView, StyleSheet, Text, Image, TextInput, View, TouchableOpacity, Alert, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import axios from "axios";
 
-export default function Login(props:any) {
+export default function Login(props: any) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const handleLogin = async () => {
         try {
-          const response = await axios.post('http://192.168.0.110:8080/login', {
-            email: email,
-            password: password,
-          });
-          console.log(response.data)
-    
-          if (response.status == 200) {
-            const { token,id, email, name } = response.data;
-            
-    
-            if (token) {
-                props.navigation.navigate('Home', {
-                user: {
-                  id: id as string,
-                  email: email as string,
-                  name: name as string,
-                },
-              });
-              console.log('Login successful');
+            const response = await axios.post('http://192.168.0.110:8080/login', {
+                email: email,
+                password: password,
+            });
+
+            if (response.status === 200) {
+                const { token, id, email, name } = response.data;
+
+                if (token) {
+                    props.navigation.navigate('Home', {
+                        user: {
+                            id: id as string,
+                            email: email as string,
+                            name: name as string,
+                        },
+                    });
+                    console.log('Login successful');
+                } else {
+                    Alert.alert('Login Failed', 'Invalid token');
+                }
+            } else if (response.status === 401) {
+                const { error } = response.data;
+                Alert.alert('Login Failed', error);
             } else {
-              Alert.alert('Login Failed', 'Invalid email or password');
+                Alert.alert('Login Failed', 'Unknown error');
             }
-          } else {
-            Alert.alert('Login Failed', 'Invalid email or password');
-          }
-    
-        } catch (error) {
-          console.error('Error during login:', error);
+
+        } catch (error:any) {
+
+            console.error('Error during login:', error);
+            console.error('Error during login:', error);
+            if (error.response && error.response.status === 401) {
+                console.log('Server response:', error.response.data);
+                Alert.alert('Login Failed', 'Invalid email or password');
+            }
         }
-      };
-      
-  return (
-    <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-    <Image source={require("../assets/logo.png")} style={styles.logo} />
-    <Text style={{ fontSize: 30, color: "green", fontWeight: "bold" }}>
-               ObjectSnap       
-                    </Text>
-            <Text style={{ fontSize: 30, color: "rgb(88, 14, 206)", fontWeight: "bold",textAlign:"center" }}>
-                   Login            </Text>
+    }
+
+    return (
+        <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+            <Image source={require("../assets/logo.png")} style={styles.logo} />
+            <Text style={{ fontSize: 30, color: "green", fontWeight: "bold" }}>
+                ObjectSnap
+            </Text>
+            <Text style={{ fontSize: 30, color: "rgb(88, 14, 206)", fontWeight: "bold", textAlign: "center" }}>
+                Login            </Text>
             <View style={styles.inputContainer}>
-               
+
 
                 <TextInput
                     style={styles.input}
@@ -64,18 +71,18 @@ export default function Login(props:any) {
                     onChangeText={(text) => setPassword(text)}
                 />
             </View>
-            <TouchableOpacity style={styles.buttonContainer}  onPress={handleLogin}>
+            <TouchableOpacity style={styles.buttonContainer} onPress={handleLogin}>
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
             <Pressable onPress={() => props.navigation.navigate("Signup")}>
 
-        <Text style={{ paddingTop: 10 ,fontSize:20}}>Don't have account? <Text style={{ color: "violet" }}>Signup</Text></Text>
+                <Text style={{ paddingTop: 10, fontSize: 20 }}>Don't have account? <Text style={{ color: "violet" }}>Signup</Text></Text>
 
 
 
-      </Pressable>
-    </ScrollView>
-  )
+            </Pressable>
+        </ScrollView>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -83,7 +90,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         alignItems: 'center',
         // justifyContent: 'center',
-        paddingTop:100,
+        paddingTop: 100,
 
     },
     logo: {

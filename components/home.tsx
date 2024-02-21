@@ -1,12 +1,24 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, ScrollView } from 'react-native'
 import React from 'react'
 
-export default function Home() {
+export default function Home(props: any) {
+    const { user } = props.route.params;
+
   return (
-    <View>
-      <Text>home</Text>
-    </View>
+    <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+         <Text>Welcome, {user.name}</Text>
+      <Text>Your ID: {user.id}</Text>
+      <Text>Your Email: {user.email}</Text>
+    </ScrollView>
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    scrollViewContainer: {
+      flexGrow: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 16,
+    },
+  });
+  
