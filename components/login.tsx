@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, Image,TextInput,View ,TouchableOpacity, Alert} from 'react-native'
+import { ScrollView, StyleSheet, Text, Image,TextInput,View ,TouchableOpacity, Alert,Pressable} from 'react-native'
 import React, { useState } from 'react'
 import axios from "axios";
 
@@ -67,6 +67,13 @@ export default function Login(props:any) {
             <TouchableOpacity style={styles.buttonContainer}  onPress={handleLogin}>
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
+            <Pressable onPress={() => props.navigation.navigate("Signup")}>
+
+        <Text style={{ paddingTop: 10 ,fontSize:20}}>Don't have account? <Text style={{ color: "violet" }}>Signup</Text></Text>
+
+
+
+      </Pressable>
     </ScrollView>
   )
 }
@@ -89,12 +96,12 @@ const styles = StyleSheet.create({
         width: 300,
     },
     input: {
-        height: 40,
+        height: 50,
         borderColor: "gray",
         borderWidth: 1,
         marginBottom: 10,
         paddingHorizontal: 10,
-        borderRadius: 8,
+        borderRadius: 15,
     },
     buttonText: {
         color: "white",

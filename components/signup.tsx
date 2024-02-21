@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, Image, View, TextInput, TouchableOpacity,
 import { StatusBar } from 'expo-status-bar';
 import axios from "axios";
 
-const Signup = () => {
+const Signup = (props:any) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -81,13 +81,13 @@ const Signup = () => {
             <TouchableOpacity style={styles.buttonContainer} onPress={handleSignup}>
                 <Text style={styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
-            {/* <Pressable onPress={() => navigation.navigate("Signin")}>
+          <Pressable onPress={() => props.navigation.navigate("Login")}>
 
-        <Text style={{ paddingTop: 10 ,fontSize:18}}>Have an account? <Text style={{ color: "violet",fontSize:18 }}>Sign In</Text></Text>
+        <Text style={{ paddingTop: 10 ,fontSize:18}}>Have an account? <Text style={{ color: "violet",fontSize:18 }}>Sign In</Text></Text> 
 
 
 
-      </Pressable> */}
+      </Pressable> 
 
             <StatusBar style="auto" />
         </ScrollView>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     scrollViewContainer: {
         flexGrow: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         paddingTop:50,
 
     },
@@ -114,12 +114,12 @@ const styles = StyleSheet.create({
         width: 300,
     },
     input: {
-        height: 40,
+        height: 50,
         borderColor: "gray",
         borderWidth: 1,
         marginBottom: 10,
         paddingHorizontal: 10,
-        borderRadius: 8,
+        borderRadius: 15,
     },
     buttonText: {
         color: "white",
